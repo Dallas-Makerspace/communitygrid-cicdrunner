@@ -12,7 +12,7 @@ services:
        replicas: 1
        mode: global
        labels:
-         traefik.enabled: false
+         traefik.enabled: 'false'
     image: gitlab-runner:latest
     volumes:
       - gl-config:/etc/gitlab-runner
