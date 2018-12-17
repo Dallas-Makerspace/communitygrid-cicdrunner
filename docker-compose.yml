@@ -1,0 +1,31 @@
+---
+version: '3.6'
+services:
+
+  gitlab-runner:
+    dns:
+      - 192.168.200.33
+      - 192.168.200.35
+    deploy:
+       restart_policy:
+          condition: 'on-error'
+       replicas: 1
+       mode: global
+       labels:
+         traefik.enabled: false
+    image: gitlab-runner:latest
+    volumes:
+      - gl-config:/etc/gitlab-runner
+      - /var/run/docker.sock:/var/run/docker.sock:rw
+    command:
+      - 'register'
+      - '--non-interactive'
+      - '--url "https://gitlab.dms.local/"'
+      - '--registration-token ${GITLAB_RUNNER}'
+      - '--descriptor "communitygrid"'
+      - '--executor "docker"'
+      - '--docker-image python:latest'
+      - '--docker-postgres latest'
+      
+volumes:
+  gl-config: {}
