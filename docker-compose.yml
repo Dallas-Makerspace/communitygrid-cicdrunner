@@ -9,7 +9,6 @@ services:
     deploy:
        restart_policy:
           condition: 'on-error'
-       replicas: 1
        mode: global
        labels:
          traefik.enabled: 'false'
